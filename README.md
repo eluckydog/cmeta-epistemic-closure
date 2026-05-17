@@ -1,0 +1,57 @@
+# cmeta-epistemic-closure
+
+**Tool self-awareness framework.** Every tool declares `C_meta` metadata — its scope, preconditions, and failure modes — and refuses blind execution in invalid domains.
+
+Inspired by [Epistemic Closure](https://arxiv.org/abs/2603.09756) (arXiv:2603.09756, Shanghai University, 2026), which introduces the concept of "Constitutive Skills" — physical laws wrapped with semantic metadata that enable LLMs to validate, prune, and complete mechanisms autonomously before execution.
+
+This repo distills that idea into a minimal, general-purpose tool registry:
+
+- **`select_tool(task)`** — natural language → ranked tool recommendations
+- **`check_tool_fit(tool, inputs)`** — pre-check feasibility before calling
+- **`_TOOL_REGISTRY`** — 16 tools declaring `needs`, `fails_when`, `gives`, `tags`
+
+## Quick start
+
+```python
+from cmeta import select_tool, check_tool_fit
+
+# What tool should I use?
+results = select_tool("solve PDE")
+print(results[0]["tool"])   # → "pde_classify"
+
+# Is my input safe to run?
+check = check_tool_fit("pde_classify", {"expr": "Derivative(f,x) + f"})
+print(check.success)        # → True
+
+# This would be rejected:
+bad = check_tool_fit("pde_classify", {"expr": "x + y"})
+print(bad.success)          # → False (no Derivative found)
+```
+
+## CLI
+
+```bash
+python -m cmeta select "solve matrix inverse"
+python -m cmeta check matrix_ops '{"matrix_str":"[[1,2],[3,4]]","operation":"inverse"}'
+```
+
+## Design: C_eta metadata
+
+Every tool entry in `_TOOL_REGISTRY` follows the "Constitutive Skill" schema from the paper:
+
+| Field | Paper concept | Description |
+|-------|--------------|-------------|
+| `needs` | Ω_int (interaction manifold) | Required input fields |
+| `fails_when` | C_meta (applicability constraints) | Conditions that make the call invalid |
+| `gives` | F (function form) | What the tool returns |
+| `tags` | Semantic indexing | Natural-language keywords for tool selection |
+
+## Paper
+
+The full source paper is included in `src/cmeta/paper.py` for reference.
+
+> Wu et al., *Epistemic Closure: Autonomous Mechanism Completion for Physically Consistent Simulation*, arXiv:2603.09756, 2026.
+
+## License
+
+MIT

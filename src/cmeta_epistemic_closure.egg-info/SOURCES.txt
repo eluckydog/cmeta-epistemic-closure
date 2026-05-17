@@ -1,0 +1,13 @@
+MANIFEST.in
+README.md
+pyproject.toml
+src/cmeta/__init__.py
+src/cmeta/paper.py
+src/cmeta/registry.py
+src/cmeta/selector.py
+src/cmeta/tool_result.py
+src/cmeta_epistemic_closure.egg-info/PKG-INFO
+src/cmeta_epistemic_closure.egg-info/SOURCES.txt
+src/cmeta_epistemic_closure.egg-info/dependency_links.txt
+src/cmeta_epistemic_closure.egg-info/top_level.txt
+tests/test_cmeta.py

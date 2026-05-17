@@ -1,0 +1,15 @@
+[build-system]
+requires = ["setuptools>=68.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "cmeta-epistemic-closure"
+version = "0.2.0"
+description = "Tool self-awareness framework — inspired by Epistemic Closure (arXiv:2603.09756)"
+readme = "README.md"
+requires-python = ">=3.9"
+license = {text = "MIT"}
+keywords = ["epistemic-closure", "cmeta", "tool-registry", "AI-safety", "physical-hallucination"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
